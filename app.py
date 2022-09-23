@@ -1,28 +1,53 @@
-# Importing flask module in the project is mandatory
-# An object of Flask class is our WSGI application.
 from flask import Flask
+from pylti.flask import lti
+from flask import request as flask_request
 
-# Flask constructor takes the name of
-# current module (__name__) as argument.
+VERSION = '0.0.1'
 app = Flask(__name__)
+app.config.from_object('config')
 
 
-# The route() function of the Flask class is a decorator,
-# which tells the application which URL should call
-# the associated function.
 @app.route('/')
-# ‘/’ URL is bound with hello_world() function.
 def hello_world():
-    return 'Hello World! Wassup?'
+    print("Home page loaded.")
+    return 'Hello World..'
 
-@app.route('/g3g')
-def gfg():
-   return 'geeksforgeeks'
-app.add_url_rule('/', 'g2g', gfg)
+
+def error(exception=None):
+    """ render error page
+    :param exception: optional exception
+    :return: the error.html template rendered
+    """
+    return "Error in LTI. \n {}".format(str(exception))
+
+
+@app.route('/lti/', methods=['GET', 'POST'])
+@lti(request='initial', error=error, app=app)
+def index(lti=lti):
+    """ initial access page to the lti provider.  This page provides
+    authorization for the user.
+    :param lti: the `lti` object from `pylti`
+    :return: index page for lti provider
+    """
+
+    # Access the payload to LTI post request
+    print('LTI initial page loaded.')
+    print(lti)
+    print(type(lti))
+    print(flask_request.method)
+    params = flask_request.form.to_dict()
+    print("params: {}".format(params))
+
+    # User's name
+    name = params['lis_person_name_full']
+    print(f'{name=}')
+
+    # Custom parameters
+    print("custom_field_01: {}".format(params['custom_field_01']))
+
+    return "Hello {}! I'm LTI tool called from Canvas.".format(params['lis_person_name_given'])
 
 
 # main driver function
 if __name__ == '__main__':
-    # run() method of Flask class runs the application
-    # on the local development server.
     app.run()
