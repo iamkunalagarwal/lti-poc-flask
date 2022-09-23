@@ -10,7 +10,7 @@ app.config.from_object('config')
 @app.route('/')
 def hello_world():
     print("Home page loaded.")
-    return 'Hello World..'
+    return 'Welcome to Home page!'
 
 
 def error(exception=None):
@@ -18,7 +18,7 @@ def error(exception=None):
     :param exception: optional exception
     :return: the error.html template rendered
     """
-    return "Error in LTI. \n {}".format(str(exception))
+    return "Error in LTI connection. \n {}".format(str(exception))
 
 
 @app.route('/lti/', methods=['GET', 'POST'])
@@ -43,7 +43,7 @@ def index(lti=lti):
     print(f'{name=}')
 
     # Custom parameters
-    print("custom_field_01: {}".format(params['custom_field_01']))
+    print("custom_field_01: {}".format(params['CUSTOM_FIELD_NAME_01']))
 
     return "Hello {}! I'm LTI tool called from Canvas.".format(params['lis_person_name_given'])
 
