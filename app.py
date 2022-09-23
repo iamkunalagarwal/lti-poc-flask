@@ -43,7 +43,7 @@ def index(lti=lti):
     print(f'{name=}')
 
     # Custom parameters
-    # print("custom_field_01: {}".format(params['custom_field_01']))
+    print("custom_field_01: {}".format(params['custom_field_01']))
 
     return "Hello {}! I'm LTI tool called from Canvas.".format(params['lis_person_name_given'])
 
