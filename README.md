@@ -5,3 +5,4 @@ Useful links:
 - https://pylti.readthedocs.io/en/master/index.html
 - https://canvas.instructure.com/doc/api/file.tools_xml.html
 - https://github.com/mitodl/mit_lti_flask_sample
+- https://colostate-dev.instructure.com/courses/140/modules
