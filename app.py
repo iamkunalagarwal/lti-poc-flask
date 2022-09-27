@@ -8,7 +8,7 @@ app.config.from_object('config')
 
 
 @app.route('/')
-def hello_world():
+def home_page():
     print("Home page loaded.")
     return 'Welcome to Home page!'
 
@@ -36,7 +36,7 @@ def index(lti=lti):
     print(type(lti))
     print(flask_request.method)
     params = flask_request.form.to_dict()
-    print("params: {}".format(params))
+    # print("params: {}".format(params))
 
     # User's name
     name = params['lis_person_name_full']
